@@ -1,51 +1,124 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Way2Commerce.Domain.Entidades;
 using Way2Commerce.Domain.Repositorios;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Way2Commerce.API.Controllers
+namespace Way2Commerce.API.Controllers 
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProdutoController : ControllerBase
+    public class ProdutoController : ControllerBase 
     {
         private readonly IProdutoRepositorio _produtoRepositorio;
 
-        public ProdutoController(IProdutoRepositorio produtoRepositorio)
+        public ProdutoController(IProdutoRepositorio produtoRepositorio) 
         {
             _produtoRepositorio = produtoRepositorio;
         }
 
-        // GET: api/<ValuesController>
+        // GET: api/<ProdutoController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get() 
         {
-            return new string[] { "value1", "value2" };
+            try 
+            {
+                var produtos = await _produtoRepositorio.BuscarTodos();
+                return Ok(produtos);
+            }
+            catch (Exception) 
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Banco de Dados Falhou");
+            }
         }
 
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/<ProdutoController>/5
+        [HttpGet("{produtoId}")]
+        public async Task<IActionResult> Get(int produtoId) 
         {
-            return "value";
+            try 
+            {
+                var produto = await _produtoRepositorio.BuscarPorId(produtoId);
+                if (produto == null)
+                    return NotFound();
+
+                return Ok(produto);
+            }
+            catch (Exception) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Banco de Dados Falhou");
+            }            
         }
 
-        // POST api/<ValuesController>
+        // POST api/<ProdutoController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] string codigo, [FromBody] string nome, [FromBody] string descricao, [FromBody] decimal preco, [FromBody] DateTime dataCadastro, [FromBody] int categoriaId) 
         {
+            try 
+            {
+                var produto = new Produto {
+                    Codigo = codigo,
+                    Nome = nome,
+                    Descricao = descricao,
+                    Preco = preco,
+                    DataHoraCadastro = dataCadastro,
+                    CategoriaId = categoriaId
+                };
+
+                return Ok(await _produtoRepositorio.Salvar(produto));
+            }
+            catch (Exception) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Banco de Dados Falhou");
+            }
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<ProdutoController>/5
+        [HttpPut]
+        public async Task<IActionResult> Put(int produtoId, [FromBody] string codigo, [FromBody] string nome, [FromBody] string descricao, [FromBody] decimal preco, [FromBody] DateTime dataCadastro, [FromBody] int categoriaId) 
         {
+            try 
+            {
+                var produto = await _produtoRepositorio.BuscarPorId(produtoId);
+                if (produto == null)
+                    return NotFound();
+
+                produto.Codigo = codigo;
+                produto.Nome = nome;
+                produto.Descricao = descricao;
+                produto.Preco = preco;
+                produto.DataHoraCadastro = dataCadastro;
+                produto.CategoriaId = categoriaId;                
+
+                await _produtoRepositorio.Alterar(produto);
+
+                return Ok();
+            }
+            catch (Exception) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Banco de Dados Falhou");
+            }
         }
 
         // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{produtoId}")]
+        public async Task<IActionResult> Delete(int produtoId) 
         {
+            try 
+            {
+                var produto = await _produtoRepositorio.BuscarPorId(produtoId);
+                if (produto == null)
+                    return NotFound();
+
+                await _produtoRepositorio.Excluir(produto);
+
+                return Ok();
+            }
+            catch (Exception) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Banco de Dados Falhou");
+            }
         }
     }
 }

@@ -11,6 +11,12 @@ namespace Way2Commerce.Data
         public DbSet<ProdutoCategoria> ProdutoCategorias { get; set; }
         public DbSet<Produto> Produtos { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
+        {
+            optionsBuilder
+                .UseSqlServer(@"Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;User ID=DESKTOP-CPEVJU9\wtsl_;Initial Catalog=way2Commerce;Data Source=DESKTOP-CPEVJU9");
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProdutoCategoriaMap());

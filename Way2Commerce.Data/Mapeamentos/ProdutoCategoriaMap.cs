@@ -14,6 +14,8 @@ namespace Way2Commerce.Data.Mapeamentos
             builder.Property(pc => pc.Nome)
                 .HasColumnType("varchar(100)")
                 .IsRequired();
+            builder.HasData(new ProdutoCategoria { Nome = "Categoria 1" });
+            builder.HasData(new ProdutoCategoria { Nome = "Categoria 2" });
         }
     }
 }

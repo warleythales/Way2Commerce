@@ -1,12 +1,13 @@
 ﻿using Way2Commerce.Domain.Entidades;
 
-namespace Way2Commerce.Domain.Repositorios
+namespace Way2Commerce.Domain.Repositorios 
 {
-    public interface IProdutoRepositorio
+    public interface IProdutoRepositorio 
     {
-        IList<Produto> BuscarTodos();
-        int Salvar(Produto produto);
-        void Alterar(Produto produto);
-        void Excluir(int ProdutoId);
+        Task<IList<Produto>> BuscarTodos();
+        Task<Produto> BuscarPorId(int produtoId);
+        Task<int> Salvar(Produto produto);
+        Task Alterar(Produto produto);
+        Task Excluir(Produto produto);
     }
 }
