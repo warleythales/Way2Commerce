@@ -4,7 +4,7 @@ namespace Way2Commerce.Domain.Repositorios
 {
     public interface IProdutoRepositorio
     {
-        IList<Produto> BuscarTodos();        
+        IList<Produto> BuscarTodos();
         int Salvar(Produto produto);
         void Alterar(Produto produto);
         void Excluir(int ProdutoId);
