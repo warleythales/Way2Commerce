@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Way2Commerce.Domain", "Way2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Way2Commerce.Data", "Way2Commerce.Data\Way2Commerce.Data.csproj", "{9145B5F2-DDC5-4D22-83B7-02FCC30F9E5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Way2Commerce.API", "Way2Commerce.API\Way2Commerce.API.csproj", "{6FA7503D-7299-487A-ACF9-B0A79204A472}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9145B5F2-DDC5-4D22-83B7-02FCC30F9E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9145B5F2-DDC5-4D22-83B7-02FCC30F9E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9145B5F2-DDC5-4D22-83B7-02FCC30F9E5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FA7503D-7299-487A-ACF9-B0A79204A472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FA7503D-7299-487A-ACF9-B0A79204A472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FA7503D-7299-487A-ACF9-B0A79204A472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FA7503D-7299-487A-ACF9-B0A79204A472}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
